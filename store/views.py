@@ -9,10 +9,12 @@ def index(request):
     if request.method == 'GET':
         return JsonResponse({})
 
-    # json request
-    request = json.loads(request.body.decode("sjis"))
+    # Get json request converted utf-8 character
+    request = json.loads(request.body.decode("utf-8"))
 
     # json response
     response = request
+    print(response)
+
     # JSONに変換して戻す
     return JsonResponse(response)
