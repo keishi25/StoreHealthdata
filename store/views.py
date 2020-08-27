@@ -13,8 +13,8 @@ def recode(request):
     request = json.loads(request.body.decode("utf-8"))
 
     # 新規作成：
-    b = HealthData(weight=40)
-    b.save()  # INSERTが実行される
+    health_data = HealthData(user_id= 1, weight=40,fat=20)
+    health_data.save()  # INSERTが実行される
 
     # json response
     response = request
@@ -33,8 +33,9 @@ def recode_person(request):
     request = json.loads(request.body.decode("utf-8"))
 
     # 新規作成：
-    b = Person(first_name="aaaa", last_name="bbbbb")
-    b.save()  # INSERTが実行される
+    person = Person(first_name="keishi", last_name="hirakawa",
+                    email_address="a.gmail.com", sex = "man")
+    person.save()  # INSERTが実行される
 
     # json response
     response = request

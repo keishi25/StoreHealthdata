@@ -1,9 +1,8 @@
 import requests
 import json
 
-#URL = "http://10.23.137.229:8000/store/"
+#URL = "http://10.23.137.229:8000/store/recode"
 URL = "http://10.23.137.152:8000/store/recode_person"
-
 
 sess = requests.session()
 
