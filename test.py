@@ -4,7 +4,7 @@ import psycopg2
 # connect postgreSQL
 users = 'postgres'  # initial user
 dbname = 'postgres'
-passwords = '180408436hk'
+passwords = ''
 conn = psycopg2.connect(" user=" + users +" dbname=" + dbname +" password=" + passwords)
 
 # excexute sql
