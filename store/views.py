@@ -5,7 +5,7 @@ from .models import HealthData, Person
 import json
 
 
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView,UpdateView
 from django.views.generic import ListView
 from .models import Author
 from django.urls import reverse
@@ -23,8 +23,7 @@ class AuthorCreate(CreateView):
 
     # 遷移先を指定する
     def get_success_url(self):
-        return reverse('list', kwargs={'pk': self.object.pk})
-
+        return reverse('update', kwargs={'pk': self.object.pk})
 
 class MyListView(ListView):
     """
@@ -32,6 +31,33 @@ class MyListView(ListView):
     """
     model = Author
     #paginate_by = 2  # 表示件数
+
+
+class AuthorUpdate(UpdateView, ListView):
+    model = Author
+    fields = ['name', 'sex']
+    template_name_suffix = '_update_form'
+
+    # 遷移先を指定する
+    def get_success_url(self):
+        return reverse('list', kwargs={'pk': self.object.pk})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 @ensure_csrf_cookie

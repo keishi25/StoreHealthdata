@@ -1,0 +1,11 @@
+
+<form method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Update">
+</form>
+
+<ul>
+  {% for item in object_list %}
+  <li>{{ item.name}} / {{ item.sex}} </li>
+  {% endfor %}
+</ul>
