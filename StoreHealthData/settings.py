@@ -55,7 +55,9 @@ ROOT_URLCONF = 'StoreHealthData.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+                    os.path.join(BASE_DIR, 'templates'),
+                    ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -122,4 +124,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+"""
+staticファイルの設定
+collectstaticを行った時、STATIC_URLに、STATICFILES_DIRSで設定した静的ファイルが集約される
+"""
+
 STATIC_URL = '/static/'
+
+# collectstaticで集計させるstaicディレクトリ
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "store/static"),
+]
+
+# collectstaticで集計される場所
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")

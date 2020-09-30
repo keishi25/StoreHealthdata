@@ -22,3 +22,13 @@ class HealthData(models.Model):
     muscle_mass = models.CharField(max_length=20, blank=True)
     memo = models.TextField(blank=True)
 
+# サンプル
+from django.db import models
+from django.urls import reverse
+
+class Author(models.Model):
+    name = models.CharField(max_length=200)
+    sex = models.CharField(max_length=200)
+
+    def get_absolute_url(self):
+      return reverse('author-detail', kwargs={'pk': self.pk})

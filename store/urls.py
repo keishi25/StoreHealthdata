@@ -1,8 +1,7 @@
 from django.urls import path
-
-from . import views
+from store.views import AuthorCreate, MyListView
 
 urlpatterns = [
-    path('recode', views.recode, name='recode'),
-    path('recode_person', views.recode_person, name='recode_person'),
+    path('post', AuthorCreate.as_view()),
+    path('<int:pk>/list', MyListView.as_view(), name='list')
 ]
