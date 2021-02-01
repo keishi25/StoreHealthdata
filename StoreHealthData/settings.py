@@ -76,12 +76,13 @@ WSGI_APPLICATION = 'StoreHealthData.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+# postgre セッティング
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'myapp',
-        'USER': 'postgres',
-        'PASSWORD': '180408436hk',
+        'NAME': 'test2',  # db名
+        'USER': 'test2',  # user名
+        'PASSWORD': '1234',
         'HOST': 'localhost',
         'PORT': '',
     }

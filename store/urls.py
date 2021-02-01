@@ -1,8 +1,10 @@
 from django.urls import path
-from store.views import AuthorCreate, MyListView,AuthorUpdate
+from . import views
 
 urlpatterns = [
-    path('post', AuthorCreate.as_view(), name='post'),
-    path('<int:pk>/list', MyListView.as_view(), name='list'),
-    path('<int:pk>/update', AuthorUpdate.as_view(), name='update')
+    path('', views.MemberList.as_view(), name='member'),
+    path('<int:pk>/', views.MemberDetail.as_view(), name='detail'),
+    path('create/', views.MemberCreate.as_view(), name='create'),
+    path('<int:pk>/update/', views.MemberUpdate.as_view(), name='update'),
+    path('<int:pk>/delete/', views.MemberDelete.as_view(), name='delete'),
 ]

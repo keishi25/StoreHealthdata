@@ -1,34 +1,22 @@
 from django.db import models
-from django import forms
-from django.utils import timezone
+from django.core.validators import MinLengthValidator, RegexValidator
+from django.core.exceptions import ValidationError
 
 
-# Personal master data.
-class Person(models.Model):
-    # user_id = models.CharField(max_length=10)
-    first_name = models.CharField(max_length=20)
-    last_name = models.CharField(max_length=20)
-    email_address = models.EmailField(max_length=100, null=True)
-    birthday = models.DateTimeField(blank=True, null=True)
-    sex = models.CharField(max_length=20, null=True)
+# validatorsの設定
+def check_age(value):
+    if value < 10 or value > 100:
+        raise ValidationError('10〜100歳が範囲ですよ!')
 
 
-# HealthData
-class HealthData(models.Model):
-    user = models.ForeignKey(Person, on_delete=models.CASCADE)
-    date = models.DateTimeField(default=timezone.now)
-    weight = models.CharField(max_length=20)
-    fat = models.CharField(max_length=20, blank=True)
-    muscle_mass = models.CharField(max_length=20, blank=True)
-    memo = models.TextField(blank=True)
+class Member(models.Model):
+    name = models.CharField(max_length=100)
+    nickname = models.CharField(max_length=100,
+                                validators=[MinLengthValidator(5, '5文字以上です！'),
+                                            RegexValidator(r'^[a-zA-Z0-9]*$', '英数字のみです！')])
+    age = models.IntegerField(
+        default=0, validators=[check_age])
 
-# サンプル
-from django.db import models
-from django.urls import reverse
+    def __str__(self):
+        return self.name
 
-class Author(models.Model):
-    name = models.CharField(max_length=200)
-    sex = models.CharField(max_length=200)
-
-    def get_absolute_url(self):
-      return reverse('author-detail', kwargs={'pk': self.pk})
