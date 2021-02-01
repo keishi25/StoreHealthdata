@@ -12,11 +12,10 @@ class MemberDetail(DetailView):
     model = Member
 
 
-
 class MemberCreate(CreateView):
     # template_name = 'user/member_form.html'
     model = Member
-    fields = ['name', 'nickname', 'age']
+    fields = ['day', 'weight']
 
 
     def get_success_url(self):
@@ -24,18 +23,17 @@ class MemberCreate(CreateView):
 
 
 class MemberUpdate(UpdateView):
-    template_name = 'app/member_update_form.html'
+    template_name = 'store/member_update_form.html'
     model = Member
-    fields = ['name', 'nickname', 'age']
+    fields = ['day', 'weight']
 
     def get_success_url(self):
         return reverse('detail', kwargs={'pk': self.object.pk})
 
     def get_form(self):
         form = super(MemberUpdate, self).get_form()
-        form.fields['name'].label = '名前'
-        form.fields['nickname'].label = 'ニックネーム'
-        form.fields['age'].label = '年齢'
+        form.fields['day'].label = '登録日'
+        form.fields['weight'].label = '体重'
         return form
 
 
