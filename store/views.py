@@ -7,6 +7,14 @@ from django.urls import reverse,  reverse_lazy
 class MemberList(ListView):
     model = Member
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)  # はじめに継承元のメソッドを呼び出す
+
+        weight_list = Member.objects.all()
+
+        context['data_list'] = weight_list
+        return context
+
 
 class MemberDetail(DetailView):
     model = Member

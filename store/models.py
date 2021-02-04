@@ -23,6 +23,4 @@ class Member(models.Model):
     age = models.IntegerField(
         default=0, validators=[check_age])
     """
-    def __str__(self):
-        return self.name
 

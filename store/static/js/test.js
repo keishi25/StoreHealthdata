@@ -1,37 +1,53 @@
-window.chartColors = {
-  red: "#FF0000",
-  blue: "#00FF00"
-};
 
-var color = Chart.helpers.color;
-var scatter_data = {
-  datasets:[{
-    label: "schatter dots",
-    borderColor: window.chartColors.red,
-    backgroundColor: color(window.chartColors.red).alpha(0.2).rgbString(),
-    pointRadius: 10,
-
-    data: [{
-      x: 20.3,
-      y: 13.43
-    },{
-      x: 17.9,
-      y: 4.2
-    },{
-      x: 10.9,
-      y: 15.2
-    }]
-
-  }]
-};
-
-var ctx = document.getElementById('canvas').getContext('2d');
-window.myScatter = Chart.Scatter(ctx, {
-  data: scatter_data,
-  option:{
-    title: {
-      display: true,
-      text: "Chart.js Scatter Chart"
+var ctx = document.getElementById("myChart").getContext('2d');
+// グラフの高さサイズ
+ctx.canvas.height = 320;
+var scatterChart = new Chart(ctx, {
+    type: 'scatter',
+    data: {
+        datasets: [{
+            label: '散布図データセット',
+            // マーカー 背景色
+            backgroundColor: 'rgba(0, 159, 255, 0.45)',
+            // マーカー 枠線の色
+            borderColor: 'rgba(0, 159, 255, 0.5)',
+            // マーカー 大きさ
+            pointRadius: 5,
+            data: [{
+                x: 10,
+                y: 10
+            },
+            {
+                x: 11,
+                y: 11
+            },
+            {
+                x: 21,
+                y: 21
+            },
+            {
+                x: 31,
+                y: 41
+            },
+            {
+                x: 21,
+                y: 34
+            },
+            {
+                x: 14,
+                y: 14
+            }]
+        }]
     },
-  }
+    options: {
+        //横はレスポンシブル
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            xAxes: [{
+                type: 'linear',
+                position: 'bottom'
+            }]
+        }
+    }
 });
