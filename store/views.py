@@ -1,7 +1,10 @@
 from django.shortcuts import render
-from .models import Member
+
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse,  reverse_lazy
+
+from .models import Member
+from .forms import MemberCreateForm
 
 
 class MemberList(ListView):
@@ -23,7 +26,9 @@ class MemberDetail(DetailView):
 class MemberCreateList(CreateView):
     # template_name = 'user/member_form.html'
     model = Member
-    fields = ['day', 'weight']
+    # CreateViewでform_clasの指定は、fieldsの設定をしている限り、必須ではない
+    form_class = MemberCreateForm
+    # fields = ['day', 'weight']
 
     def get_success_url(self):
         return reverse('detail', kwargs={'pk': self.object.pk})
