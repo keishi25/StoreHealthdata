@@ -20,14 +20,17 @@ class MemberDetail(DetailView):
     model = Member
 
 
-class MemberCreate(CreateView):
+class MemberCreateList(CreateView):
     # template_name = 'user/member_form.html'
     model = Member
     fields = ['day', 'weight']
 
-
     def get_success_url(self):
         return reverse('detail', kwargs={'pk': self.object.pk})
+
+    def get_context_data(self, **kwargs):
+        kwargs["object_list"] = Member.objects.order_by("id").reverse()  # 最新のデータを上部に表示
+        return super(MemberCreateList, self).get_context_data(**kwargs)
 
 
 class MemberUpdate(UpdateView):
@@ -49,7 +52,8 @@ class MemberDelete(DeleteView):
     # template_name = 'user/member_confirm_delete.html'
     model = Member
 
-    success_url = reverse_lazy('member')
+    # 処理後の遷移先のurlsのname
+    success_url = reverse_lazy('create')
 
 
 
