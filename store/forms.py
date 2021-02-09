@@ -12,4 +12,4 @@ class MemberCreateForm(forms.ModelForm):
 
     class Meta:
         model = Member
-        fields = ['day', 'weight']
+        fields = ['day', 'weight', 'fat_percentage']

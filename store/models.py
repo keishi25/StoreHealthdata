@@ -13,6 +13,7 @@ def check_age(value):
 class Member(models.Model):
     day = models.DateTimeField(default=timezone.now)
     weight = models.IntegerField(default=0)
+    fat_percentage = models.IntegerField(default=0)
 
     """
     original　

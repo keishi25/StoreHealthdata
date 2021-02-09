@@ -13,15 +13,15 @@
 
     <!-- Read chart.js 2.x. -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
-    <!-- cssの繋ぎこみ-->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/test.css' %}">
+    <!-- cssの読み込み-->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/member_form.css' %}">
 
 </head>
 
 <body>
     <!-- ヘッダー -->
     <nav class="navbar navbar-light mb-2" style="background-color:#e3f2fd;">
-        <a href="#" class="navbar-brand">　体重管理</a>
+        <a href="{% url 'create' %}" class="navbar-brand">　体重管理</a>
     </nav>
 
     <!-- 体重記録form -->
@@ -40,13 +40,6 @@
             </div>
         </div>
     </div>
-    <style>
-        .header{
-            position: sticky;
-            top:0;
-        }
-
-    </style>
 
     <!-- table描画 -->
         <div class="container">
@@ -56,6 +49,7 @@
             <tr>
                 <th class="header" scope="col">登録日</th>
                 <th class="header" scope="col">体重</th>
+                <th class="header" scope="col">体脂肪率</th>
                 <th class="header" scope="col">詳細</th>
                 <th class="header" scope="col">編集</th>
                 <th class="header" scope="col">削除</th>
@@ -66,6 +60,8 @@
             <tr>
                 <td>{{ member.day}}</td>
                 <td>{{ member.weight}}</td>
+                <td>{{ member.fat_percentage}}</td>
+
                 <td><a href="{% url 'detail' member.pk %}">詳細</a></td>
                 <td><a href="{% url 'update' member.pk %}">編集</a></td>
                 <td><a href="{% url 'delete' member.pk %}">削除</a></td>
@@ -76,6 +72,10 @@
         </div>
         </div>
 
+    <!-- jsファイルと変数共有 -->
+    <script type="text/javascript">
+        var scatter_data = {{ scatter_data|safe }};
+    </script>
 
     <!-- chart.jsグラフ描画-->
     <div class="container">
@@ -85,7 +85,7 @@
     </div>
 
     <!-- jsファイル読み込み -->
-    <script src="{% static 'js/test.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/member_form.js' %}" type="text/javascript"></script>
 
 </body>
 

@@ -1,0 +1,5 @@
+/* テーブルヘッダーの固定 */
+.header{
+            position: sticky;
+            top:0;
+        }

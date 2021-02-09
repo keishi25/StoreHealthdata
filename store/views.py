@@ -1,5 +1,7 @@
-from django.shortcuts import render
+import json
+from datetime import datetime, date, time
 
+from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse,  reverse_lazy
 
@@ -19,6 +21,13 @@ class MemberList(ListView):
         return context
 
 
+def json_serial(obj):
+    """date datetimeの変換関数"""
+    # 日付型の場合は、文字列に変換
+    if isinstance(obj, (datetime, date)):
+        return obj.isoformat()
+
+
 class MemberDetail(DetailView):
     model = Member
 
@@ -35,13 +44,20 @@ class MemberCreateList(CreateView):
 
     def get_context_data(self, **kwargs):
         kwargs["object_list"] = Member.objects.order_by("id").reverse()  # 最新のデータを上部に表示
+        scatter_data_list = list(Member.objects.values("fat_percentage", "weight"))  # カラム指定
+        scatter_data_dict = {"scatter_data": scatter_data_list}
+        scatter_data_json_str = json.dumps(scatter_data_dict, default=json_serial)
+        # chart.js用にデータ構造の成型
+        scatter_data_json_str = scatter_data_json_str.replace("fat_percentage", "x")
+        scatter_data_json_str = scatter_data_json_str.replace("weight", "y")
+        kwargs["scatter_data"] = scatter_data_json_str
         return super(MemberCreateList, self).get_context_data(**kwargs)
 
 
 class MemberUpdate(UpdateView):
     template_name = 'store/member_update_form.html'
     model = Member
-    fields = ['day', 'weight']
+    fields = ['day', 'weight', 'fat_percentage']
 
     def get_success_url(self):
         return reverse('detail', kwargs={'pk': self.object.pk})
@@ -50,6 +66,7 @@ class MemberUpdate(UpdateView):
         form = super(MemberUpdate, self).get_form()
         form.fields['day'].label = '登録日'
         form.fields['weight'].label = '体重'
+        form.fields['fat_percentage'].label = '体脂肪率'
         return form
 
 
