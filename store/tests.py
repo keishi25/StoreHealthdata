@@ -3,8 +3,17 @@
 var ctx = document.getElementById("myChart").getContext('2d');
 // グラフの高さサイズ
 ctx.canvas.height = 320;
-alert(scatter_data["scatter_data"]);
 var scatter_data = scatter_data["scatter_data"];
+
+var input_data = [];
+for (let step = 0; step < scatter_data.length; step++) {
+  date = new Date(scatter_data[step]["day"]);
+  //alert(typeof date);
+  //alert(date);
+  input_data.push({x:date, y:scatter_data[step]["weight"]});
+}
+
+//date = new Date(scatter_data[0]["x"]);
 
 
 // グラフの設定
@@ -19,30 +28,7 @@ var scatterChart = new Chart(ctx, {
             borderColor: 'rgba(0, 159, 255, 0.5)',
             // マーカー 大きさ
             pointRadius: 5,
-            data: [{
-                x: 10,
-                y: 10
-            },
-            {
-                x: 11,
-                y: 11
-            },
-            {
-                x: 21,
-                y: 21
-            },
-            {
-                x: 31,
-                y: 41
-            },
-            {
-                x: 21,
-                y: 34
-            },
-            {
-                x: 14,
-                y: 14
-            }]
+            data: input_data
         }]
     },
     options: {
@@ -51,8 +37,12 @@ var scatterChart = new Chart(ctx, {
         maintainAspectRatio: false,
         scales: {
             xAxes: [{
-                type: 'linear',
-                position: 'bottom'
+                type: 'time',
+                time: {
+                    displayFormats: {
+                        quarter: 'MMM YYYY'
+                    }
+                }
             }]
         }
     }

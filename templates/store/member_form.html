@@ -58,7 +58,7 @@
 
             {% for member in object_list %}
             <tr>
-                <td>{{ member.day}}</td>
+                <td>{{ member.day|date:"Y/m/d" }}</td>
                 <td>{{ member.weight}}</td>
                 <td>{{ member.fat_percentage}}</td>
 
@@ -80,7 +80,7 @@
     <!-- chart.jsグラフ描画-->
     <div class="container">
         <div class="canvas-container">
-            <canvas id="myChart" width="100" height="100"></canvas>
+            <canvas id="myChart" width="100" height="30"></canvas>
         </div>
     </div>
 
