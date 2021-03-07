@@ -76,34 +76,17 @@ WSGI_APPLICATION = 'StoreHealthData.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+# postgre セッティング
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'test',
-        'USER': 'test',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'test2',  # db名
+        'USER': 'test2',  # user名
         'PASSWORD': '1234',
-        'PORT': '5432',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
-
-# In the flexible environment, you connect to CloudSQL using a unix socket.
-# Locally, you can use the CloudSQL proxy to proxy a localhost connection
-# to the instance
-DATABASES['default']['HOST'] = '/cloudsql/balmy-platform-305710:asia-northeast1:test'
-if os.getenv('GAE_INSTANCE'):
-    pass
-else:
-    DATABASES['default']['HOST'] = '127.0.0.1'
-# [END dbconfig]
-
-# Use a in-memory sqlite3 database when testing in CI systems
-if os.getenv('TRAMPOLINE_CI', None):
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
-        }
-    }
 
 
 # Password validation
@@ -147,7 +130,7 @@ staticファイルの設定
 collectstaticを行った時、STATIC_URLに、STATICFILES_DIRSで設定した静的ファイルが集約される
 """
 
-STATIC_URL = 'https://storage.googleapis.com/test_123412341234/static/'
+STATIC_URL = '/static/'
 
 # collectstaticで集計させるstaicディレクトリ
 STATICFILES_DIRS = [
